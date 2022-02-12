@@ -6,12 +6,14 @@ import (
 	"goelster/database"
 	"io/ioutil"
 	"net/http"
+	"strconv"
+
 	"github.com/gorilla/mux"
 ) 
 
 func CreatePerson(w http.ResponseWriter,r *http.Request){
-	requestBody, _:=ioutil.ReadAll(r.Body)
-	person:= []studentstruct.Person{}
+	requestBody, _:=ioutil.ReadAll((r.Body))
+	var person studentstruct.Person
 	json.Unmarshal(requestBody,&person)
 
 	database.Connector.Create(person)
@@ -29,10 +31,28 @@ func GetPersonData(w http.ResponseWriter,r *http.Request){
 func GetPersonByID(w http.ResponseWriter, r *http.Request){
 	vars:=mux.Vars(r)
 	key:=vars["id"]
-  	person:= []studentstruct.Person{}
+  	var person studentstruct.Person
 	
 	database.Connector.Find(&person,key)
 	w.Header().Set("Content-Type","application/json")
 	json.NewEncoder(w).Encode(person)
 }
 
+func GetByID(w http.ResponseWriter, r *http.Request){
+	vars:= mux.Vars(r)
+	key:=vars["id"]
+	person:= []studentstruct.Person{}
+
+	database.Connector.Find(&person)
+
+	for _, persons:= range person {
+			s,err:= strconv.Atoi(key)
+			if err==nil{
+				if persons.ID == s{
+					w.Header().Set("Content-Type","application/json")
+					json.NewEncoder(w).Encode(persons)
+					return
+				}
+			}
+	}
+}

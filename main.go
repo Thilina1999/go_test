@@ -21,6 +21,7 @@ func main(){
 	
 	router.HandleFunc("/get/{id}",controllers.GetPersonByID).Methods("GET")
 	router.HandleFunc("/get",controllers.GetPersonData).Methods("GET")
+	router.HandleFunc("/newget/{id}",controllers.GetByID).Methods("GET")
 
 	c:=cors.New(cors.Options{
 		AllowedOrigins: []string{"*"},

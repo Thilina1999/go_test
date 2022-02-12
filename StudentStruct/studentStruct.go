@@ -1,7 +1,7 @@
 package studentstruct
 
 type Person struct {
-ID        string `json:"id"`
+ID        int `json:"id"`
 FirstName string `json:"firstname"`
 LastName  string `json:"lastname"`
 Age       int `json:"age"`
