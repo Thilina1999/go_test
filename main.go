@@ -41,7 +41,7 @@ func IntDb(){
 			ServerName: "localhost:3306",
 			User:       "root",
 			Password:   "Thilina1999@",
-			DB:         "test4",
+			DB:         "test5",
 		}
 		connectionString :=database.GetConnectionString(config)
 		err:=database.Connect(connectionString)

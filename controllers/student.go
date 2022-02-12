@@ -31,7 +31,7 @@ func GetPersonByID(w http.ResponseWriter, r *http.Request){
 	key:=vars["id"]
   	person:= []studentstruct.Person{}
 	
-	database.Connector.First(&person,key)
+	database.Connector.Find(&person,key)
 	w.Header().Set("Content-Type","application/json")
 	json.NewEncoder(w).Encode(person)
 }
